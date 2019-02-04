@@ -1,3 +1,14 @@
+class Token:
+	def __init__(self, type, value = "Null"):
+		self.type = type
+		self.value = value
+
+
+	def __str__(self):
+		return 'Token({type}, {value})'.format(type = self.type, value = self.value)
+
+	def __repr__(self):
+		return self.__str__()
 class Queue:
 	def __init__(self):
 		self.queue = []
@@ -10,6 +21,13 @@ class Queue:
 
 	def is_empty(self):
 		return True if not len(self.queue) else False
+
+	def __iter__(self):
+		while True:
+			try:
+				yield self.queue.deqeue()
+			except:
+				break
 	def __str__(self):
 		out = [str(x) for x in self.queue]
 		return str(out)
@@ -53,33 +71,41 @@ def shunting(_input):
 	outq = Queue()
 	op_stack = Stack()
 	for char in _input:
-		if char.isdigit():
-			outq.enqueue(char)
-		if isoperator(char):
-			try:
-				while (op_stack.peek() != "(") and ((PRECEDENCE[op_stack.peek()][0] > PRECEDENCE[char][0]) or ((PRECEDENCE[op_stack.peek()][0] == PRECEDENCE[char][0]) and
-					PRECEDENCE[op_stack.peek()][1] == "left")):
-					outq.enqueue(op_stack.pop())
-				op_stack.push(char)
-			except:
-				op_stack.push(char)
-			
-		if char == "(":
-			op_stack.push(char)
-		if char == ")":
+		if char.value == "(":
+			op_stack.push(char.value)
+		if char.value == ")":
 			while op_stack.peek() != "(":
 				outq.enqueue(op_stack.pop())
 			op_stack.pop()
+
+		if str(char.value).isdigit():
+			outq.enqueue(char.value)
+		if isoperator((str(char.value))):
+			try:
+				while (op_stack.peek() != "(") and ((PRECEDENCE[op_stack.peek()][0] > PRECEDENCE[char.value][0]) or ((PRECEDENCE[op_stack.peek()][0] == PRECEDENCE[char.value][0]) and
+					PRECEDENCE[op_stack.peek()][1] == "left")):
+					outq.enqueue(op_stack.pop())
+				op_stack.push(char.value)
+			except:
+				op_stack.push(char.value)
+			
+		
 
 	while not op_stack.is_empty():
 		if op_stack.peek() in "()":
 			raise ValueError("Incorrect Input")
 		outq.enqueue(op_stack.pop())
-
 	return outq
 
 
+#print(shunting([Token("INT", "0"), Token("MINUS", "-"), Token("INT", "3"), Token("PLUS", "+"), Token("INT", "2")]))
 
 
 
-print(shunting("(3+(4 * 2))"))
+
+
+
+
+
+
+

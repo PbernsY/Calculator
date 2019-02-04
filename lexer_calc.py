@@ -1,4 +1,3 @@
-import re
 
 
 
@@ -23,6 +22,8 @@ tokens = {
 }
 
 
+bracks = [ "(", ")"]
+
 tokenised = []
 def tokeniser(_input):
 	# regex works just fine, hacky 
@@ -38,4 +39,33 @@ def tokeniser(_input):
 		elif untokenised_chr in tokens:
 			tokenised.append(Token(tokens[untokenised_chr][0], tokens[untokenised_chr][1]))
 	return(tokenised)
+
+
+
+
+
+def format_input(_string):
+	i = 0
+	output = []
+	while i < len(_string):
+		if _string[i] == " ":
+			i += 1
+			pass
+		if _string[i] == "-":
+			if not _string[i - 1] == None:
+				output.append("0")
+				output.append(_string[i])
+			if _string[i - 1] in tokens:
+				output.append("0")
+				output.appenf(_string[i])
+			if _string[i - 1] in bracks:
+				output.append("0")
+				output.append(_string[i])
+
+		else:
+			output.append(_string[i])
+		i += 1
+	return output
+
+
 
