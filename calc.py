@@ -3,19 +3,18 @@ import shunting_yard
 import ext
 
 
-
-while True:
-	_input = input()
-	if _input == "quit()":
-		break
-	else:
-		a = lexer_calc.format_input(_input)
-		print(a)
-		b = lexer_calc.tokeniser(a)
-		print(b)
-		rpn = shunting_yard.shunting(b)
-		print(rpn)
-		result = ext.make_tree(rpn)
+_input = input()
+a = lexer_calc.format_input(_input)
+print("This is formatted to cater for - ")
+print(a)
+b = lexer_calc.tokeniser(a)
+print("Tokenised input")
+print(b)
+rpn = shunting_yard.shunting(b)
+print("RPN of Tokenised" + " ")
+print(rpn)
+result = ext.make_tree(rpn)
+print(ext.evaluate(result))
 
 
 

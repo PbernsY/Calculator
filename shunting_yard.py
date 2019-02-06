@@ -23,11 +23,7 @@ class Queue:
 		return True if not len(self.queue) else False
 
 	def __iter__(self):
-		while True:
-			try:
-				yield self.queue.deqeue()
-			except:
-				break
+		yield from self.queue
 	def __str__(self):
 		out = [str(x) for x in self.queue]
 		return str(out)
@@ -98,7 +94,7 @@ def shunting(_input):
 	return outq
 
 
-print(shunting([Token("INT", "0"), Token("MINUS", "-"), Token("INT", "3"), Token("PLUS", "+"), Token("INT", "2")]))
+
 
 
 

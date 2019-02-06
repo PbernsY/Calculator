@@ -1,3 +1,5 @@
+import shunting_yard
+from lexer_calc import *
 class ExpressionTree(object):
 	def __init__(self, value):
 		self.value = value
@@ -45,7 +47,4 @@ def evaluate(node):
 		return int(node.value)
 	else:
 		return OPERATORS[node.value](evaluate(node.left), (evaluate(node.right)))
-
-r = make_tree(["0", "3", "-", "2", "+"])
-print(evaluate(r))
 

@@ -28,6 +28,7 @@ bracks = [ "(", ")"]
 
 tokenised = []
 def tokeniser(_input):
+	tokenised.clear()
 	# regex works just fine, hacky 
 	#tokens_ = re.findall(r"[\+\-\*\(\)/]|\d+", _input)
 	
