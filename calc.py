@@ -1,6 +1,6 @@
 import lexer_calc
 import shunting_yard
-import et
+import ext
 
 
 
@@ -15,9 +15,7 @@ while True:
 		print(b)
 		rpn = shunting_yard.shunting(b)
 		print(rpn)
-		result = et.make_tree(rpn)
-		print(rpn)
-		print(et.evaluate(result))
+		result = ext.make_tree(rpn)
 
 
 

@@ -19,6 +19,8 @@ tokens = {
 	"-" : ("MINUS", "-"),
 	"/" : ("DIV", "/"),
 	"*" : ("MUL", "*"),
+	"(" : ("OPP", "("),
+	")" : ("CLP", ")")
 }
 
 
@@ -32,8 +34,8 @@ def tokeniser(_input):
 	for untokenised_chr in _input:
 		if untokenised_chr == "":
 			continue
-		if untokenised_chr in "()":
-			tokenised.append(untokenised_chr)
+		#if untokenised_chr in "()":
+		#	tokenised.append(untokenised_chr)
 		elif untokenised_chr.isdigit():
 			tokenised.append(Token("INT", int(untokenised_chr)))
 		elif untokenised_chr in tokens:
@@ -47,25 +49,22 @@ def tokeniser(_input):
 def format_input(_string):
 	i = 0
 	output = []
-	while i < len(_string):
+	for i in range(0, len(_string)):
 		if _string[i] == " ":
-			i += 1
-			pass
+			continue
 		if _string[i] == "-":
-			if not _string[i - 1] == None:
+			if  _string[0] == "-":
 				output.append("0")
 				output.append(_string[i])
-			if _string[i - 1] in tokens:
-				output.append("0")
-				output.appenf(_string[i])
-			if _string[i - 1] in bracks:
+			elif _string[i - 1] in tokens:
 				output.append("0")
 				output.append(_string[i])
+
+
 
 		else:
 			output.append(_string[i])
 		i += 1
 	return output
-
 
 

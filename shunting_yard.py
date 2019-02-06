@@ -98,12 +98,7 @@ def shunting(_input):
 	return outq
 
 
-#print(shunting([Token("INT", "0"), Token("MINUS", "-"), Token("INT", "3"), Token("PLUS", "+"), Token("INT", "2")]))
-
-
-
-
-
+print(shunting([Token("INT", "0"), Token("MINUS", "-"), Token("INT", "3"), Token("PLUS", "+"), Token("INT", "2")]))
 
 
 
