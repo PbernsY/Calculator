@@ -26,9 +26,9 @@ tokens = {
 
 bracks = [ "(", ")"]
 
-tokenised = []
+
 def tokeniser(_input):
-	tokenised.clear()
+	tokenised = []
 	# regex works just fine, hacky 
 	#tokens_ = re.findall(r"[\+\-\*\(\)/]|\d+", _input)
 	
@@ -48,24 +48,30 @@ def tokeniser(_input):
 
 
 def format_input(_string):
-	i = 0
 	output = []
-	for i in range(0, len(_string)):
-		if _string[i] == " ":
-			continue
-		if _string[i] == "-":
-			if  _string[0] == "-":
+	i = 0
+	if  _string[0] == "-":
 				output.append("0")
+				output.append(_string[0])
+				i += 1
+	while i < len(_string):
+		if _string[i] == " ":
+			i += 1
+			continue
+		
+
+		if _string[i] == "-":
+			if _string[i - 1].isdigit():
 				output.append(_string[i])
+				i += 1
+			
 			elif _string[i - 1] in tokens:
 				output.append("0")
 				output.append(_string[i])
-
-
-
+				i += 1
 		else:
 			output.append(_string[i])
-		i += 1
+			i += 1
 	return output
 
 
