@@ -6,7 +6,9 @@ class ExpressionTree(object):
 		self.left = None
 		self.right = None
 	def __str__(self):
-		return str(self.value) + str(self.left) + str(self.right)
+		if not self.left:
+			return str(self.value)
+		return "(" +  " ".join(str(self.value) + str(self.left) + str(self.right)) + ")"
 
 
 OPERATORS = {
@@ -15,6 +17,7 @@ OPERATORS = {
 	"-" : int.__sub__,
 	"*" : int.__mul__, 
 	"/" : int.__floordiv__,
+	"^" :int.__pow__
 	} 
 
 def is_operator(item):
@@ -26,25 +29,23 @@ def inorder_traversal(item):
 		print(item.value),
 		inorder_traversal(item.right)
 
+
+
+
 def make_tree(POSTFIXNOTATION):
 	stack = []
 	for char in POSTFIXNOTATION:
-		if not is_operator(char):
-			_int = ExpressionTree(char)
-			stack.append(_int)
+		if char not in OPERATORS:
+			stack.append(ExpressionTree(char))
 		else:
-			_int = ExpressionTree(char)
-			child1 = stack.pop()
-			child2 = stack.pop()
-			_int.right = child1
-			_int.left = child2
-			stack.append(_int)
-	_int = stack.pop()
-	return _int
+			expression = ExpressionTree(char)
+			expression.right = stack.pop()
+			expression.left = stack.pop()
+			stack.append(expression)
+	return stack.pop()
 
 def evaluate(node):
-	if not node.right and not node.left:
-		return int(node.value)
-	else:
-		return OPERATORS[node.value](evaluate(node.left), (evaluate(node.right)))
-
+    if not node.right and not node.left:
+        return int(node.value)
+    operator = OPERATORS[node.value]
+    return operator(evaluate(node.left), (evaluate(node.right)))

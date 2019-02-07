@@ -8,6 +8,7 @@ while True:
 	if _input == "quit()":
 		break
 	a = lexer_calc.format_input(_input)
+	print(a)
 	b = lexer_calc.tokeniser(a)
 	print("Tokenised input {}".format(b))
 	rpn = shunting_yard.shunting(b)

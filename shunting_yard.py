@@ -59,10 +59,11 @@ PRECEDENCE = {
 		"*" : (3, "left"),
 		"-" : (2, "left"),
 		"/" : (2, "left"),
+		"^" : (4, "right")
 }
 
 def isoperator(char):
-	return char in "-+/*"
+	return char in "-+/*^"
 def shunting(_input):
 	outq = Queue()
 	op_stack = Stack()

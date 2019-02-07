@@ -20,7 +20,8 @@ tokens = {
 	"/" : ("DIV", "/"),
 	"*" : ("MUL", "*"),
 	"(" : ("OPP", "("),
-	")" : ("CLP", ")")
+	")" : ("CLP", ")"),
+	"^" : ("POW", "^")
 }
 
 
@@ -29,9 +30,6 @@ bracks = [ "(", ")"]
 
 def tokeniser(_input):
 	tokenised = []
-	# regex works just fine, hacky 
-	#tokens_ = re.findall(r"[\+\-\*\(\)/]|\d+", _input)
-	
 	for untokenised_chr in _input:
 		if untokenised_chr == "":
 			continue
@@ -58,12 +56,13 @@ def format_input(_string):
 		if _string[i] == " ":
 			i += 1
 			continue
-		
-
 		if _string[i] == "-":
-			if _string[i - 1].isdigit():
+			if _string[i - 1].isdigit() and not _string[i + 1] == "-":
 				output.append(_string[i])
 				i += 1
+			if _string[i + 1] == "-":
+				output.append("+")
+				i += 2
 			
 			elif _string[i - 1] in tokens:
 				output.append("0")
