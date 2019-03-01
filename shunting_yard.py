@@ -75,8 +75,8 @@ def shunting(_input):
 				outq.enqueue(op_stack.pop())
 			op_stack.pop()
 
-		if str(char.value).isdigit():
-			outq.enqueue(char.value)
+		if char.type == "INT":
+			outq.enqueue(int(char.value))
 		if isoperator((str(char.value))):
 			try:
 				while (op_stack.peek() != "(") and ((PRECEDENCE[op_stack.peek()][0] > PRECEDENCE[char.value][0]) or ((PRECEDENCE[op_stack.peek()][0] == PRECEDENCE[char.value][0]) and

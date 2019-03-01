@@ -49,3 +49,4 @@ def evaluate(node):
         return int(node.value)
     operator = OPERATORS[node.value]
     return operator(evaluate(node.left), (evaluate(node.right)))
+
